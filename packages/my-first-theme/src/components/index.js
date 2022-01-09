@@ -7,6 +7,8 @@ import Switch from "@frontity/components/switch";
 import List from "./List";
 import Post from "./Post";
 import Page from "./Page";
+import Loading from "./Loading";
+import Error from "./Error";
 
 const Root = ({ state, actions }) => {
   const data = state.source.get(state.router.link);
@@ -38,16 +40,19 @@ const Root = ({ state, actions }) => {
           )}
           <Menu>
             <Link link="/">Home</Link>
-            <br />
+            <Link link="/destinations">Destinations</Link>
             <Link link="/about-us">About Us</Link>
           </Menu>
         </HeaderContent>
       </Header>
       <Main>
         <Switch>
+          <Loading when={data.isFetching} />
+          <Error when={data.isError} />
           <List when={data.isArchive} />
           <Post when={data.isPost} />
           <Page when={data.isPage} />
+          <Page when={data.isDestinations} />
         </Switch>
       </Main>
     </>
